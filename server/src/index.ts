@@ -3,6 +3,14 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import dns from 'node:dns';
+
+// Solo en desarrollo: el resolver de algunas redes domésticas rechaza consultas SRV.
+// En Vercel se usa el DNS de la plataforma.
+if (process.env.NODE_ENV !== 'production') {
+  dns.setServers(['8.8.8.8', '8.8.4.4']);
+}
+
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
